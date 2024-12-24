@@ -13,9 +13,26 @@ function App() {
 }
 
 function Counter(){
+    
+   const [count, setCount] = useState(0);
+
+   function increaseCount(){
+        setCount(count+1);
+   }
+
+   function decreaseCount(){
+      setCount(count-1);
+   }
+
+   function resetCount(){
+        setCount(0);
+   }
+
    return <div>
-       <h1>1</h1>
-       <button > Increase count</button>
+       <h1>{count}</h1>
+       <button onClick={increaseCount} > Increase count</button>
+       <button onClick={decreaseCount} > Decrease count</button>
+       <button onClick={resetCount} > Reset count</button>
    </div>
 }
 
