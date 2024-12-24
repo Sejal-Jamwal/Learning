@@ -1,50 +1,57 @@
-import { use } from 'react';
 import { useState, useEffect } from 'react'
 
+//useEffect, DEPENDENCY ARRAY, Cleanups
 
 function App() {
 
-  //CONDITIONAL RENDERING
+   const [count, setCount] = useState(0);
+   const [count2, setCount2] = useState(0);
 
-  const [counterVisible, setCounterVisible] = useState(true);
+   function increase(){
+       setCount(count+1);
+   }
 
-  //Logic for changing the counterVisible value after every 5 secs
-  useEffect(function(){
-     
-    setInterval(function(){
-       setCounterVisible(counterVisible => !counterVisible);
-    }, 5000);
-
-  }, []);
+   function decrease(){
+     setCount2(count2-1);
+   }
 
    return <div>
-       {counterVisible && <Counter></Counter>}
+       <Counter count={count} count2={count2}></Counter>
+       <button onClick={increase}>Increase Count</button>
+       <button onClick={decrease}>Decrease Count</button>
    </div>
+ 
    
 }
 
-function Counter(){
+function Counter(props){
     
-   const [count, setCount] = useState(0);
+   //EMPTY DEPENDENCY ARRAY
+
+   useEffect(function(){
     
-   useEffect(function() {
-      // Logic for when the component mounts, runs only when dependency array is empty
-      let clock = setInterval(function(){
-        setCount(count => count + 1);
-      }, 1000);
+    console.log("Counter Component mounts");
 
-      // UNMOUNTING AND CLEANUP
-
-      return function(){
-        //Logic for when the component unmounts, runs only when dependency array is empty
-        clearInterval(clock);
-      }
+    return function(){
+      console.log("Counter Component unmounts");
+    }
 
    }, []);
 
+   //DEPENDENCY ARRAY WITH STATE VARIABLES
+
+   useEffect(function(){
+       console.log("counter has changed");
+       
+       return function(){
+         console.log("cleanup inside second effect");
+       }
+
+   }, [props.count, props.count2]);
 
    return <div>
-       <h1>{count}</h1>
+       <h1>Counter 1 {props.count}</h1>
+       <h1>Counter 2 {props.count2}</h1>
        
    </div>
 }
