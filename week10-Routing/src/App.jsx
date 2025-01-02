@@ -1,86 +1,37 @@
 
 import './App.css'
-import { BrowserRouter, Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import { useRef } from 'react';
+
+//useRef Hook 
+//lets u create a reference to a value, s.t when you change the value, the component DOES NOT RE-RENDER
+// similar to useState in the context that it creates a reference to a value
+//BUT different to useState in the context that when you change the value using the useState Hook, the component RE-RENDERS.
+
 
 function App() {
+  
+  const inputRef = useRef();
 
-  return <div>
-    <BrowserRouter>
-      
-      <Routes>
-        <Route path="/" element={<Layout/>}>
-
-        <Route path="/neet/online-coaching-class-11" element={<Class11Program />} />
-        <Route path="/neet/online-coaching-class-12" element={<Class12Program />} />
-        <Route path="/" element={<Landing />} />
-        <Route path="*" element ={<ErrorPage/>}/>
-
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </div>
-}
-
-function Layout(){
-
-  return <div style={{height: "100vh", background:"green"}}>
-
-      <Header/>
-
-      <div style={{height: "90vh", background:"red"}}>
-        <Outlet/>
-      </div>
-
-      Footer
-
-  </div>
+  function focusOnInput(){
+    //SAME AS document.getElementById("name");
+     inputRef.current.focus();
      
-}
-
-function Header(){
-    
-  return  <div>
-    <Link to="/">Allen</Link>
-      | 
-      <Link to="/neet/online-coaching-class-11">Class 11</Link> 
-      | 
-      <Link to="/neet/online-coaching-class-12">Class 12</Link>
-
-  </div>
-}
-
-function ErrorPage(){
-  return <div>
-     No such page exists!
-  </div>
-}
-
-function Landing() {
-  return <div>
-    Welcome to allen
-  </div>
-}
-
-function Class11Program() {
-   
-  //USE NAVIGATE HOOK
-  const navigate =  useNavigate();
-
-  function redirectUser(){
-     navigate("/");
   }
+ 
 
   return <div>
-      NEET programs for Class 11th
-      <button onClick={redirectUser}> Redirect to landing page</button>
+    Sign up
+    <input ref= {inputRef} id="name" type="text"></input> {/* This is the element jiska hume reference chaiye  */}
+    <input id="email" type="text"></input>
+
+    <button onClick={focusOnInput}>Submit</button>
+
   </div>
+  
+   
 }
 
-function Class12Program() {
-  return <div>
-      NEET programs for Class 12th
-  </div>
-}
+
 
 export default App
 
