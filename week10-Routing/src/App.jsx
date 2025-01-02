@@ -1,6 +1,6 @@
 
 import './App.css'
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 function App() {
 
@@ -27,8 +27,17 @@ function Landing() {
 }
 
 function Class11Program() {
+   
+  //USE NAVIGATE HOOK
+  const navigate =  useNavigate();
+
+  function redirectUser(){
+     navigate("/");
+  }
+
   return <div>
       NEET programs for Class 11th
+      <button onClick={redirectUser}> Redirect to landing page</button>
   </div>
 }
 
