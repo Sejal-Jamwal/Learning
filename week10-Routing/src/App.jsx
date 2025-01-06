@@ -1,33 +1,34 @@
 
 import './App.css'
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
-//useRef Hook 
-//lets u create a reference to a value, s.t when you change the value, the component DOES NOT RE-RENDER
-// similar to useState in the context that it creates a reference to a value
-//BUT different to useState in the context that when you change the value using the useState Hook, the component RE-RENDERS.
-
+// A clock with start and stop functionality is the best example for useRef
+//For more info, you can watch 10.1 video- SPAs and Routing, 01:13:55
 
 function App() {
-  
-  const inputRef = useRef();
 
-  function focusOnInput(){
-    //SAME AS document.getElementById("name");
-     inputRef.current.focus();
-     
+  const [currentCount, setCurrentCount] = useState(1);
+
+  const timer = useRef();
+
+  function startClock(){
+      let value = setInterval(function(){
+            setCurrentCount(count => count+1);
+      }, 1000);
+
+      timer.current = value;
   }
- 
+
+  function stopClock(){
+       clearInterval(timer.current);
+  }
 
   return <div>
-    Sign up
-    <input ref= {inputRef} id="name" type="text"></input> {/* This is the element jiska hume reference chaiye  */}
-    <input id="email" type="text"></input>
-
-    <button onClick={focusOnInput}>Submit</button>
-
+   {currentCount}
+   <button onClick={startClock}>Start</button>
+   <button onClick={stopClock}>Stop</button>
   </div>
-  
+
    
 }
 
