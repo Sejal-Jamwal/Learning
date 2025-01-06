@@ -4,18 +4,28 @@ import './App.css'
 //CREATING CONTEXT FOR YOUR STATE VARIABLES
 const BulbContext = createContext();
 
-function App() {
+function BulbProvider({children}){
 
   const [bulbOn, setBulbOn] = useState(true);
-   
+ 
+
+  return <BulbContext.Provider value={{
+    bulbOn : bulbOn,
+    setBulbOn : setBulbOn
+    }}>
+      {children}
+
+   </BulbContext.Provider>
+
+}
+
+function App() {
+
     return <div>
-      {/*PROVIDER*/}
-      <BulbContext.Provider value={{
-          bulbOn : bulbOn,
-          setBulbOn : setBulbOn
-      }}>
-       <Light/>
-      </BulbContext.Provider>
+      <BulbProvider>
+          <Light/>
+      </BulbProvider>
+     
     </div>
 }
 
