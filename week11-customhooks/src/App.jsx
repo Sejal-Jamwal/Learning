@@ -1,24 +1,18 @@
 import React, { useState } from 'react'
-import { useFetch } from './hooks/useFetch'
+import { usePrev } from './hooks/usePrev'
 
 
 function App() {
-const [ currentPost, setCurrentPost ] = useState(1);
-const { finalData , loading }  = useFetch("https://jsonplaceholder.typicode.com/posts/"+ currentPost);
-
-if(loading){
-    return <div>
-        Loading...
-    </div>
-}
+const [ value , setCurrentValue ] = useState(0);
+const prev = usePrev(value);
 
   return <div>
+       
+       <div>{value}</div>
 
-       <button onClick = {() => setCurrentPost(1)}>1</button>
-       <button onClick = {() => setCurrentPost(2)}>2</button>
-       <button onClick = {() => setCurrentPost(3)}>3</button>
-
-       {JSON.stringify(finalData)}
+       <button onClick = {() => setCurrentValue(count => count + 1)}>Click me</button>
+        
+       <div>The previous value was {prev}</div>
 
   </div>
 }
