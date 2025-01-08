@@ -42,6 +42,13 @@ export function useFetch(url){
          getDetails();  
     } , [url])
 
+
+    //so that the backend request goes every 5 seconds
+    useEffect(() =>{
+        setInterval(getDetails, 5000);
+    } , []);
+
+
     return {
          finalData,
          loading
